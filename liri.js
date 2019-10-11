@@ -2,6 +2,7 @@ require("dotenv").config();
 var keys = require("./keys.js");
 var spotify = new Spotify(keys.spotify);
 var axios = require('axios');
+var search= 
 
 switch (process.argv[2]) {
     case 'concert-this':
