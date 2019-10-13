@@ -11,10 +11,10 @@ switch (process.argv[2]) {
     case 'concert-this':
         axios.get("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp").then(
             function (response) {
-                var correctFormat = (moment("response.data.datetime", "MM-DD-YYYY"))
+                //var correctFormat = (moment("response.data.datetime", "MM-DD-YYYY"));
                 console.log('The venue is called: ' + response.data.venue.name);
                 console.log('The venue is in: ' + response.data.venue.city);
-                console.log('The concert is on: ' + correctFormat);
+                //console.log('The concert is on: ' + correctFormat);
             }
         )
 
