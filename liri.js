@@ -1,9 +1,10 @@
 require("dotenv").config();
 var keys = require("./keys.js");
-var Spotify= require('node-spotify-api');
+var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 var axios = require('axios');
 var moment = require('moment');
+var fs = require('fs-extra');
 var search = process.argv.splice(3, process.argv.length - 1);
 
 switch (process.argv[2]) {
@@ -34,7 +35,7 @@ switch (process.argv[2]) {
             .catch(function (err) {
                 console.log(err);
             });
-        
+
         break;
 
     case 'movie-this':
@@ -53,8 +54,9 @@ switch (process.argv[2]) {
         break;
 
     case 'do-what-it-says':
-        //run random.txt thru spotify-this-song
-        //console.log results
+        fs.copy('./random.txt')
+            .then(() => console.log('success!'))
+            .catch(err => console.error(err))
         break;
 
     default:
