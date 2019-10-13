@@ -2,12 +2,20 @@ require("dotenv").config();
 var keys = require("./keys.js");
 var spotify = new Spotify(keys.spotify);
 var axios = require('axios');
+var moment = require('moment');
 var search= process.argv.splice(3, process.argv.length - 1);
 
 switch (process.argv[2]) {
     case 'concert-this':
-        //axios to bit;
-        //console.log results;
+        axios.get("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp").then(
+            function(response) {
+                var correctFormat = (moment("response.data.datetime", "MM-DD-YYYY"))
+                console.log('The venue is called: ' + response.data.venue.name);
+                console.log('The venue is in: ' + response.data.venue.city);
+                console.log('The concert is on: ' + correctFormat);
+            }
+        )
+        
         break;
     
     case 'spotify-this-song':
@@ -28,7 +36,6 @@ switch (process.argv[2]) {
     console.log('The plot is: ' + response.data.Plot);
 
   });
-        //console.log results
         break;
 
     case 'do-what-it-says':
