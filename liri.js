@@ -11,10 +11,10 @@ switch (process.argv[2]) {
     case 'concert-this':
         axios.get("https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp").then(
             function (response) {
-                //var correctFormat = (moment("response.data.datetime", "MM-DD-YYYY"));
-                console.log('The venue is called: ' + response.data.venue.name);
-                console.log('The venue is in: ' + response.data.venue.city);
-                //console.log('The concert is on: ' + correctFormat);
+                var correctFormat = (moment("response.data[0].datetime", "MM-DD-YYYY"));
+                console.log('The venue is called: ' + response.data[0].venue.name);
+                console.log('The venue is in: ' + response.data[0].venue.city);
+                console.log('The concert is on: ' + response.data[0].datetime);
             }
         )
 
@@ -27,10 +27,18 @@ switch (process.argv[2]) {
                 query: search
             })
             .then(function (response) {
-                console.log(response.data.artists);
-                console.log(response.data.track.name);
-                console.log(response.data.track.album);
-                console.log(response.data.track.preview_url);
+                var songInfo = response.tracks.items;
+                for (i = 0; i < songInfo.length; i++) {
+                    console.log(`
+                    
+                    Artist: ${songInfo[i].artists.map(getArtistInfo)}`);
+                    
+
+                    
+                    
+                };
+
+
             })
             .catch(function (err) {
                 console.log(err);
@@ -54,11 +62,11 @@ switch (process.argv[2]) {
         break;
 
     case 'do-what-it-says':
-        fs.copy('./random.txt')
+        fs.copy('/random.txt')
             .then(() => console.log('success!'))
             .catch(err => console.error(err))
         break;
 
     default:
-        console.log('Invalid request');
+        console.log("Invalid request. This isn't really SIRI");
 }
