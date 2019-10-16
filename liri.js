@@ -27,16 +27,14 @@ switch (process.argv[2]) {
                 query: search
             })
             .then(function (response) {
+                
                 var songInfo = response.tracks.items;
-                for (i = 0; i < songInfo.length; i++) {
-                    console.log(`
-                    
-                    Artist: ${songInfo[i].artists.map(getArtistInfo)}`);
-                    
-
-                    
-                    
-                };
+                    console.log("The artist is: " + songInfo[0].artists.id);
+                    console.log("The song is called: " + songInfo[0].tracks.name);
+                    console.log("This album is: " + songInfo[0].album.id);
+                    console.log("Spotify preview: " + songInfo[0].tracks.preview_url);
+                
+                //}
 
 
             })
